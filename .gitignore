@@ -1,0 +1,4 @@
+*.o
+*~
+.*.swp
+ring_*_example
