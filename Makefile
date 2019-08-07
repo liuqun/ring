@@ -29,8 +29,8 @@ endif
 # 手动维护下列源代码文件清单
 HEADER_LIST += ring.h
 SOURCE_LIST += ring.c
-#HEADER_LIST += ring_iterator.h
-#SOURCE_LIST += ring_iterator.c
+HEADER_LIST += ring_iterator.h
+SOURCE_LIST += ring_iterator.c
 OBJECT_LIST = $(patsubst %.c,%.o,$(SOURCE_LIST))
 
 .PHONY: all
@@ -46,6 +46,6 @@ clean:
 	$(RM) ring_*_example
 .PHONY: selftest
 selftest: ring_basic_example
-ring_basic_example: ring_basic_example.o ring.o
+ring_basic_example: ring_basic_example.o ring.o ring_iterator.o
 	$(LINK.o) -o $@ $^ $(LIBS)
 vpath %.c tests
