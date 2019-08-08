@@ -24,13 +24,15 @@ struct ring_ {
 	unsigned int max_ring_nodes;
 	unsigned int head;
 	unsigned int tail;
-	union node_ {
-		void *data;
-		char *debug; // Reserved for debug only
+	struct node_ {
+		union {
+			void *data;
+			char *debug; // Reserved for debug only
+		};
 	} nodes[];
 };
 typedef struct ring_ Ring;
-typedef union node_ Node;
+typedef struct node_ Node;
 
 Ring * ring_new(unsigned int how_many_nodes);// 环形队列结点总个数必须是2^N, 例如128，256，512，1024等等
 void ring_free(Ring *ring);
