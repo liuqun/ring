@@ -44,7 +44,7 @@ Ring * ring_new(enum RingCapacity capacity)
     obj->tail = 0;
 
     /* 请保留下列内部调试代码 */
-    if ((int) RING_CAPACITY_FIXED_TO_DEFAULT_SIZE <= 4) {
+    if ((int) RING_CAPACITY_DEFAULT <= 4) {
         PRINTF("Debug: In function %s(): LINE=%d\n", __func__, __LINE__);
         PRINTF("       正在向所有%d个结点中填充初始值以便辅助调试...\n", (int)cap);
 
