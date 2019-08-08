@@ -18,20 +18,20 @@
 #include "toolbox/ring.h"
 
 // 临时定义数据结构, 仅用于存储测试数据
-struct record_st {
+struct record_ {
 	unsigned long used_bytes;
 	unsigned long capacity;
 	char data[10];
 	char padding[];
 };
-typedef struct record_st Record;
+typedef struct record_ Record;
 const int RECORD_PADDING_BYTES = ((int) (sizeof(Record) - offsetof(Record, padding)));
 const int RECORD_CAPACITY = ((int) (sizeof(Record) - offsetof(Record, data) - RECORD_PADDING_BYTES));
 
 void dump_node(const Node *node)
 {
 	unsigned long i;
-	struct record_st *record;
+	struct record_ *record;
 
 	record = node->data;
 	printf("%lu, %lu, {", record->used_bytes, record->capacity);
@@ -43,11 +43,11 @@ void dump_node(const Node *node)
 
 int main()
 {
-	struct record_st all[5];
-	const size_t N = sizeof(all)/sizeof(struct record_st);
+	struct record_ all[5];
+	const size_t N = sizeof(all)/sizeof(struct record_);
 
 	printf("Record结构体尺寸:\n");
-	printf("Info: sizeof(struct record_st) = %d\n", (int) sizeof(struct record_st));
+	printf("Info: sizeof(struct record_) = %d\n", (int) sizeof(struct record_));
 	printf("Info: sizeof(all[0]) = %d\n", (int) sizeof(all[0]));
 	printf("Info: sizeof(all[0].data) = %d\n", (int) sizeof(all[0].data));
 	printf("Info: sizeof(all[0].padding) = %d\n", RECORD_PADDING_BYTES);
