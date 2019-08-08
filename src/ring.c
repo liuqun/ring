@@ -58,4 +58,28 @@ Ring * ring_new(enum RingCapacity capacity)
     return obj;
 }
 
+unsigned int ring_capacity(const Ring *ring)
+{
+    assert(NULL!=ring && "ERROR: 指针 ring 不能为 NULL!");
+    return ((unsigned int) ring->cap);
+}
+
+unsigned int ring_count(const Ring *ring)
+{
+    assert(NULL!=ring && "ERROR: 指针 ring 不能为 NULL!");
+    return (ring->tail - ring->head);
+}
+
+int ring_is_empty(const Ring *ring)
+{
+    assert(NULL!=ring && "ERROR: 指针 ring 不能为 NULL!");
+    return (ring->tail == ring->head);
+}
+
+int ring_is_full(const Ring *ring)
+{
+    assert(NULL!=ring && "ERROR: 指针 ring 不能为 NULL!");
+    return (ring->tail - ring->head == ring->cap);
+}
+
 /* vi: set tabstop=4 shiftwidth=4 expandtab : */
