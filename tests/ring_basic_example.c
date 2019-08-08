@@ -60,6 +60,11 @@ int main()
 		memset(all[i].data, 'A' + i, RECORD_CAPACITY);
 	}
 
+	#if defined(RINGLIB_PRINT_VERSION)
+	// 0. 检查 RINGLIB 版本号
+	RINGLIB_PRINT_VERSION();
+	#endif
+
 	// // 1. 初始化Ring
 	// ring = ring_new(8);
 

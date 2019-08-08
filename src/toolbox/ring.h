@@ -4,6 +4,12 @@
 
 #pragma once
 
+#define RINGLIB_VER_X 0
+#define RINGLIB_VER_Y 10
+#define RINGLIB_VERSION_NUMBER_X_Y (RINGLIB_VER_X*1000 + RINGLIB_VER_Y) /* 版本号格式为"X.00Y"，当X=1 Y=0时表示1.0版本；当X=1 Y=10时表示1.01版本；当X=1 Y=100时表示1.10版本，以此类推 */
+#define RINGLIB_PRINT_VERSION() \
+	printf("Ring lib version=%.2f\n", RINGLIB_VERSION_NUMBER_X_Y / 1000.0f)
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
