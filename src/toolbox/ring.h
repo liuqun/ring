@@ -45,12 +45,6 @@ enum RingCapacity {// 环形队列容量(可容纳结点的总个数)必须是2^
 };
 
 struct ring_ {
-#if defined(RING_ENABLE_LOCKFREE_FEATURE)
-	int producer_head_idx;
-	int producer_tail_idx;
-	int consumer_head_idx;
-	int consumer_tail_idx;
-#endif
 	enum RingCapacity cap;//最大容量
 	unsigned int head;
 	unsigned int tail;
