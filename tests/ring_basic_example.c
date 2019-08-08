@@ -6,7 +6,7 @@
 //
 // 测试用例设计思路:
 // 1. 创建一个空的Ring
-// 2. 调用ring_enqueue(), 将若干条数据块输入环形链表;
+// 2. 调用ring_enqueue(), 将若干条数据块输入环形队列;
 // 最后: 释放为测试用例分配的所有内存
 
 
@@ -21,7 +21,7 @@
 struct record_st {
 	unsigned long used_bytes;
 	unsigned long capacity;
-	char data[100];
+	char data[10];
 	char padding[];
 };
 typedef struct record_st Record;
@@ -43,8 +43,8 @@ void dump_node(const Node *node)
 
 int main()
 {
-	struct record_st *all;
-	const size_t N = 5;
+	struct record_st all[5];
+	const size_t N = sizeof(all)/sizeof(struct record_st);
 
 	printf("Record结构体尺寸:\n");
 	printf("Info: sizeof(struct record_st) = %d\n", (int) sizeof(struct record_st));
@@ -53,7 +53,6 @@ int main()
 	printf("Info: sizeof(all[0].padding) = %d\n", RECORD_PADDING_BYTES);
 	printf("测试开始：\n");
 	printf("Info: 初始化N组Record数据块备用...\n");
-	all = (Record *)calloc(sizeof(struct record_st), N);
 	for (size_t i = 0; i < N; i++) {
 		all[i].capacity = RECORD_CAPACITY;
 		all[i].used_bytes = RECORD_CAPACITY;
@@ -65,22 +64,32 @@ int main()
 	RINGLIB_PRINT_VERSION();
 	#endif
 
-	// // 1. 初始化Ring
-	// ring = ring_new(8);
+	// 1. 初始化Ring
+	printf("步骤1. ring = ring_new(RING_CAPACITY_DEFAULT)\n");
+	Ring *ring = NULL;
+	ring = ring_new(RING_CAPACITY_DEFAULT);
+	printf("ring 总容量可存放 %u 个结点\n", ring_capacity(ring));
 
-	// 2. 将N组测试数据块插入双向链表deq
-	for (size_t i = 0; i < N; i++) {
+	// 2. 将N组测试数据块插入环形队列
+	for (size_t i = 0; i < 2; i++) {
+		//ring_enqueue(ring, &all[i]);
+		const unsigned int mask = ring->cap - 1;
+		void *data = &(all[i]);
+		ring->nodes[ring->tail & mask].data = data;
+		ring->tail += 1;
 	}
 
-	//// 3. 打印deq的内部数据
-	// printf("ring 内部数据为: {\n");
-	// printf("}\n");
+	// 3. 打印环形队列的内部数据
+	printf("步骤3. 检查环形队列当前状态:\n");
+	printf("ring 当前包含%u个结点，内部数据分别为: {\n", ring_count(ring));
+	for (long i = (long) (ring->head); i < (ring->tail); i++) {
+		const unsigned int mask = ring->cap - 1;
+		dump_node(&ring->nodes[i & mask]);
+	}
+	printf("}\n");
 
-	// // 释放ring
-	// ring_free(ring);
-
-	// 释放all数据块
-	free(all);
+	// 释放ring
+	ring_free(ring);
 
 	printf("测试结束\n");
 	return 0;

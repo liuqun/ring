@@ -5,6 +5,7 @@
 #include <errno.h>  // 标准错误码查询
 #include "toolbox/ring.h"
 
+#undef RINGLIB_DEBUG_ALLOW_PRINTF_DEBUG_MSG
 #if defined(RINGLIB_DEBUG_ALLOW_PRINTF_DEBUG_MSG)
 #include <stdio.h>
 #define PRINTF(...) fprintf(stderr, __VA_ARGS__)
