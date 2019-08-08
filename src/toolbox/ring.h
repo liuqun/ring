@@ -72,14 +72,14 @@ void ring_free(Ring *ring);
 		p = NULL; \
 	} while (0)
 
-unsigned int ring_count_nodes(const Ring *ring);
-unsigned int ring_max_nodes(const Ring *ring);
-
 void ring_enqueue(Ring *ring, /*const*/ void *data);
 void ring_dequeue(Ring *ring);
 void * ring_peek_head(const Ring *ring);
 
+unsigned int ring_capacity(const Ring *ring);
+unsigned int ring_count(const Ring *ring);
 int ring_is_empty(const Ring *ring);
+int ring_is_full(const Ring *ring);
 
 typedef void (*operator_fn_t)(void *node_data, void *extra_arg);
 void exec_func_for_each_node(
