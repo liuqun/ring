@@ -6,7 +6,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
-typedef struct ring_iterator_st RingIterator;
+typedef struct ring_iterator_ RingIterator;
 
 RingIterator * ring_iterator_new(const Ring *ring);
 
