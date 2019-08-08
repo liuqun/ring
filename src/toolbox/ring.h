@@ -14,6 +14,7 @@
 
 #if defined(RINGLIB_DEBUG_ALLOW_ALL)
 #define RINGLIB_DEBUG_ALLOW_TINY_CAPACITY    /* 调试专用宏：允许设置特别小的环型队列容量 */
+#define RINGLIB_DEBUG_ALLOW_PRINTF_DEBUG_MSG /* 调试专用宏：允许printf输出调试信息 */
 #endif
 
 #if (!defined(RINGLIB_DEBUG_ALLOW_ALL) && RINGLIB_VER_X>=1)
